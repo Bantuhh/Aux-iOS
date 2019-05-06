@@ -5,6 +5,7 @@ To Begin:
 - Must have Spotify downloaded on your device and have a working account
 - Features will not work if not connected to a network
 
+
 To Join The Test Group Session:
 - Navigate to the Group Session View
 - Click Join a Group Session
