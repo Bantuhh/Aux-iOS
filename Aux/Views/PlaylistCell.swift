@@ -22,6 +22,8 @@ class PlaylistCell: UITableViewCell {
     
     var playlistID: String!
     
+    var playlistLink: String!
+    
     var numSongs: String!
     
     var delegate: MyCustomCellDelegator!
@@ -32,7 +34,7 @@ class PlaylistCell: UITableViewCell {
     }
 
     @IBAction func moreButtonPressed(_ sender: Any) {
-        let playlist = Playlist(name: playlistNameLabel.text!, numSongs: numSongs, thumbnailURL: playlistThumbnailURL, playlistID: playlistID, ownerID: ownerID)
+        let playlist = Playlist(name: playlistNameLabel.text!, numSongs: numSongs, thumbnailURL: playlistThumbnailURL, playlistID: playlistID, ownerID: ownerID, playlistLink: playlistLink)
         
         if self.delegate != nil {
             self.delegate.callSegueFromCell(myData: playlist)

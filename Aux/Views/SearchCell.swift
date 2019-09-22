@@ -20,12 +20,14 @@ class SearchCell: UITableViewCell {
     
     var playURI: String!
     
+    var trackLink: String!
+    
     var platform: String!
     
     var delegate: MyCustomCellDelegator!
     
     @IBAction func optionButtonPressed(_ sender: Any) {
-        let track = Track(name: songLabel.text!, artist: artistLabel.text!, imageURL: albumArtImageURI, playURI: playURI)
+        let track = Track(name: songLabel.text!, artist: artistLabel.text!, imageURL: albumArtImageURI, playURI: playURI, trackLink: trackLink)
         
         if self.delegate != nil {
             self.delegate.callSegueFromCell(myData: track)

@@ -248,7 +248,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="v2g-2D-gAK"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Search" image="SearchUnselected" selectedImage="SearchSelected" id="2Ic-WA-1L0"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="SearchUnselected" selectedImage="SearchSelected" id="2Ic-WA-1L0">
+                        <color key="badgeColor" red="0.1450980392" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="searchBarTextField" destination="JHW-sD-3aZ" id="wU8-OB-sgn"/>
                         <outlet property="searchTableView" destination="9xa-rp-23R" id="A4q-YE-B5y"/>
@@ -285,13 +287,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJ3-X5-8UZ">
-                                <rect key="frame" x="165.5" y="325" width="83.5" height="18"/>
+                                <rect key="frame" x="167.5" y="325" width="79.5" height="18"/>
                                 <fontDescription key="fontDescription" name="Raleway-v4020-Bold" family="Raleway-v4020" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PFq-m9-LHx">
-                                <rect key="frame" x="174" y="360" width="66" height="14"/>
+                                <rect key="frame" x="175.5" y="360" width="63.5" height="14"/>
                                 <fontDescription key="fontDescription" name="Raleway-v4020-Regular" family="Raleway-v4020" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -306,7 +308,7 @@
                                 <rect key="frame" x="50" y="556" width="275" height="10"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HXB-L7-8oL">
-                                <rect key="frame" x="50" y="438" width="249.00000000000023" height="40"/>
+                                <rect key="frame" x="50" y="450" width="249" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="HXB-L7-8oL" secondAttribute="height" multiplier="31:5" id="Gej-gj-Ap6"/>
                                     <constraint firstAttribute="width" constant="248.99999999999977" id="wXT-Tl-81c"/>
@@ -563,7 +565,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qEt-98-yho"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Your Library" image="LibraryUnselected" selectedImage="LibrarySelected" id="YGo-0a-yHu"/>
+                    <tabBarItem key="tabBarItem" title="Your Library" image="LibraryUnselected" selectedImage="LibrarySelected" id="YGo-0a-yHu">
+                        <color key="badgeColor" red="0.1450980392" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="libraryTableView" destination="23E-0f-cv2" id="hAv-tl-15V"/>
@@ -603,13 +607,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Playlist Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRA-5Y-qNF">
-                                <rect key="frame" x="161.5" y="261" width="91.5" height="18"/>
+                                <rect key="frame" x="157.5" y="261" width="99" height="18"/>
                                 <fontDescription key="fontDescription" name="Raleway-v4020-Bold" family="Raleway-v4020" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Num Songs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90j-BV-qpo">
-                                <rect key="frame" x="175.5" y="290" width="63.5" height="14"/>
+                                <rect key="frame" x="174.5" y="290" width="65.5" height="14"/>
                                 <fontDescription key="fontDescription" name="Raleway-v4020-Regular" family="Raleway-v4020" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -758,25 +762,25 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Playlist Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qWG-26-y6y">
-                                <rect key="frame" x="157.5" y="325" width="99" height="18"/>
+                                <rect key="frame" x="161.5" y="325" width="91.5" height="18"/>
                                 <fontDescription key="fontDescription" name="Raleway-v4020-Bold" family="Raleway-v4020" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Num Songs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="buY-PE-pZa">
-                                <rect key="frame" x="174.5" y="360" width="65.5" height="14"/>
+                                <rect key="frame" x="175.5" y="360" width="63.5" height="14"/>
                                 <fontDescription key="fontDescription" name="Raleway-v4020-Regular" family="Raleway-v4020" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Line" translatesAutoresizingMaskIntoConstraints="NO" id="9ZK-ns-h8Q">
-                                <rect key="frame" x="50" y="485" width="277.5" height="4"/>
+                                <rect key="frame" x="50" y="497" width="277.5" height="16"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Line" translatesAutoresizingMaskIntoConstraints="NO" id="WgA-NZ-Dys">
-                                <rect key="frame" x="39.5" y="426" width="335" height="4"/>
+                                <rect key="frame" x="39.5" y="426" width="335" height="16"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="giO-It-odj">
-                                <rect key="frame" x="50" y="438" width="249" height="40"/>
+                                <rect key="frame" x="50" y="450" width="249" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="249" id="9gN-Rk-xEr"/>
                                     <constraint firstAttribute="width" secondItem="giO-It-odj" secondAttribute="height" multiplier="249:40" id="rBZ-PC-V1f"/>
@@ -787,7 +791,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGE-hV-fCG">
-                                <rect key="frame" x="50" y="497" width="249.00000000000023" height="40"/>
+                                <rect key="frame" x="50" y="521" width="249" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="248.99999999999977" id="tZH-Vb-Mqp"/>
                                     <constraint firstAttribute="width" secondItem="fGE-hV-fCG" secondAttribute="height" multiplier="31:5" id="zWz-4H-N24"/>
@@ -953,7 +957,7 @@
                                 <sections/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Then add songs to the queue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNP-cP-IB9">
-                                <rect key="frame" x="135" y="224.5" width="144.5" height="13"/>
+                                <rect key="frame" x="131.5" y="225" width="151.5" height="13"/>
                                 <fontDescription key="fontDescription" name="Raleway-v4020-Medium" family="Raleway-v4020" pointSize="11"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1024,7 +1028,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DVP-Ri-vfT"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Session" image="SessionUnselected" selectedImage="SessionSelected" id="Dnh-Cj-hpy"/>
+                    <tabBarItem key="tabBarItem" title="Session" image="SessionUnselected" selectedImage="SessionSelected" id="Dnh-Cj-hpy">
+                        <color key="badgeColor" red="0.1450980392" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="QueueTableView" destination="MFW-78-8FV" id="2oy-I7-rFn"/>
                         <outlet property="currAlbumArtImage" destination="tRf-2N-HsL" id="beF-ek-ykN"/>
@@ -1062,7 +1068,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Members:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gh-t6-kcR">
-                                <rect key="frame" x="47" y="136" width="197.5" height="31"/>
+                                <rect key="frame" x="47" y="136" width="207" height="31"/>
                                 <fontDescription key="fontDescription" name="Raleway-v4020-Bold" family="Raleway-v4020" pointSize="26"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1092,7 +1098,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Member Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pzn-nA-V4i">
-                                                    <rect key="frame" x="82" y="21" width="136.5" height="17"/>
+                                                    <rect key="frame" x="82" y="21" width="144.5" height="17"/>
                                                     <fontDescription key="fontDescription" name="Raleway-v4020-Bold" family="Raleway-v4020" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -1124,19 +1130,19 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Code:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7kf-qE-kPH">
-                                <rect key="frame" x="135" y="714" width="144.5" height="30"/>
+                                <rect key="frame" x="132" y="714" width="150" height="30"/>
                                 <fontDescription key="fontDescription" name="Raleway-v4020-Bold" family="Raleway-v4020" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="thecode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BR-x2-1J8">
-                                <rect key="frame" x="163" y="759" width="88" height="28"/>
+                                <rect key="frame" x="159" y="759" width="96" height="28"/>
                                 <fontDescription key="fontDescription" name="Raleway-v4020-Bold" family="Raleway-v4020" pointSize="24"/>
                                 <color key="textColor" red="0.91764705879999997" green="0.4431372549" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vxT-MS-FSD">
-                                <rect key="frame" x="303" y="57" width="91" height="29"/>
+                                <rect key="frame" x="300" y="57" width="94" height="29"/>
                                 <fontDescription key="fontDescription" name="Raleway-v4020-Medium" family="Raleway-v4020" pointSize="14"/>
                                 <state key="normal" title="Leave Session">
                                     <color key="titleColor" red="0.91764705879999997" green="0.4431372549" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1200,7 +1206,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter a Group Code:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ewl-lx-9Lf">
-                                <rect key="frame" x="63" y="278" width="184.5" height="23.5"/>
+                                <rect key="frame" x="63" y="278" width="192" height="23.5"/>
                                 <fontDescription key="fontDescription" name="Raleway-v4020-Bold" family="Raleway-v4020" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1304,7 +1310,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="3UA-yC-53a"/>
-        <segue reference="l8M-2J-hs6"/>
-        <segue reference="EgS-Pb-cvj"/>
+        <segue reference="kUQ-b2-r7p"/>
+        <segue reference="M0x-Q5-mFN"/>
     </inferredMetricsTieBreakers>
 </document>

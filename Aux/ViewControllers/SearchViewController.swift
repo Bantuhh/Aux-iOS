@@ -125,6 +125,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
                 cell.playURI = track.uri
                 
+                // Get track link
+                cell.trackLink = track.externalUrls["spotify"]
+                
                 cell.albumArtImage.sd_setImage(with: URL(string: albumArtURL), placeholderImage: UIImage(named: "defaultAlbum"),options: SDWebImageOptions(rawValue: 0), completed: { (image, error, cacheType, imageURL) in
                     // Perform operation.
                     cell.albumArtImage.image = image
@@ -210,7 +213,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 numArtists += 1
             }
             
-            let currentTrack = Track(name: track.name, artist: trackArtistString, imageURL: currentSearchAlbumArtURLs[indexPath.row], playURI: track.uri)
+            let currentTrack = Track(name: track.name, artist: trackArtistString, imageURL: currentSearchAlbumArtURLs[indexPath.row], playURI: track.uri, trackLink: track.externalUrls["spotify"]!)
             
             nowPlaying = currentTrack
             

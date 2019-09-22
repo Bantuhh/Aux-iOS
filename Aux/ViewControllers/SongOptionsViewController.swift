@@ -31,7 +31,7 @@ class SongOptionsViewController: UIViewController {
         
         artistNameLabel.text = selectedTrack?.artist
         
-        if selectedTrack?.imageURL == "none" {
+        if selectedTrack?.imageURL == "" {
             albumArtImage.image = albumImage
         } else {
             albumArtImage.sd_setImage(with: URL(string: selectedTrack!.imageURL), placeholderImage: UIImage(named: "defaultAlbum"),options: SDWebImageOptions(rawValue: 0), completed: { (image, error, cacheType, imageURL) in
@@ -74,10 +74,27 @@ class SongOptionsViewController: UIViewController {
     }
     
     @IBAction func viewOnSpotify(_ sender: Any) {
+        // TODO: Figure a way to open spotify without screwing up queue and replaying song
+        openCustomURLScheme(customURLScheme: selectedTrack!.trackLink)
+        
     }
     
     @IBAction func goBack(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func openCustomURLScheme(customURLScheme: String) {
+        let customURL = URL(string: customURLScheme)!
+        if UIApplication.shared.canOpenURL(customURL) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(customURL)
+            } else {
+                UIApplication.shared.openURL(customURL)
+            }
+                //return true
+        }
+        
+            //return false
     }
     
     /*

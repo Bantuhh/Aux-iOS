@@ -189,14 +189,16 @@ class GroupSessionViewController: UIViewController, UITableViewDelegate, UITable
                 let trackArtist = songDict["artist"] as! String
                 let trackImageURL = songDict["imageURL"] as! String
                 let trackPlayURI = songDict["playURI"] as! String
+                let trackLink = songDict["trackLink"] as! String
                 
-                let currentTrack = Track(name: trackName, artist: trackArtist, imageURL: trackImageURL, playURI: trackPlayURI)
+                let currentTrack = Track(name: trackName, artist: trackArtist, imageURL: trackImageURL, playURI: trackPlayURI, trackLink: trackLink)
                 
                 if nowPlaying?.playURI != currentTrack.playURI {
                     
                     nowPlaying = currentTrack
                     
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: "updateCurrentSong"), object: nil)
+                    // MSG: Could be causing the non update of the album art image in the session when updated by other phone
+                    // NotificationCenter.default.post(name: Notification.Name(rawValue: "updateCurrentSong"), object: nil)
                     
                     self.appDelegate.appRemote.playerAPI?.enqueueTrackUri(nowPlaying!.playURI, callback: { (result, error) in
                         self.appDelegate.appRemote.playerAPI?.skip(toNext: { (result, error) in
@@ -399,8 +401,9 @@ class GroupSessionViewController: UIViewController, UITableViewDelegate, UITable
                 let trackArtist = songDict["artist"] as! String
                 let trackImageURL = songDict["imageURL"] as! String
                 let trackPlayURI = songDict["playURI"] as! String
+                let trackLink = songDict["trackLink"] as! String
                 
-                let currentTrack = Track(name: trackName, artist: trackArtist, imageURL: trackImageURL, playURI: trackPlayURI)
+                let currentTrack = Track(name: trackName, artist: trackArtist, imageURL: trackImageURL, playURI: trackPlayURI, trackLink: trackLink)
                 
                 nowPlaying = currentTrack
                 

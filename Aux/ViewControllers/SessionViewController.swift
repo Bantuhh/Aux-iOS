@@ -28,6 +28,8 @@ class SessionViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var currAlbumArtURL: String?
     
+    var currTrackLink: String!
+    
     @IBOutlet weak var playAndPauseButton: UIButton!
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -125,46 +127,54 @@ class SessionViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let track = currentQueue[indexPath.row]
+        if indexPath.row == 0 {
+            skip(0)
+            
+        } else {
         
-        nowPlaying = track
-        
-        currAlbumArtURL = track.imageURL
-        
-        if !joinedGroupSessionIsActive {
-            if groupSessionIsActive {
-                updatedFromJoinedSession = false
-                let groupSessionRef = ref.child("Group Sessions").child(groupSessionKey)
-                groupSessionRef.updateChildValues(["updatedFromJoinedSession" : false])
+            let track = currentQueue[indexPath.row]
+            
+            nowPlaying = track
+            
+            currAlbumArtURL = track.imageURL
+            
+            currTrackLink = track.trackLink
+            
+            if !joinedGroupSessionIsActive {
+                if groupSessionIsActive {
+                    updatedFromJoinedSession = false
+                    let groupSessionRef = ref.child("Group Sessions").child(groupSessionKey)
+                    groupSessionRef.updateChildValues(["updatedFromJoinedSession" : false])
+                    
+                    updateFirebaseCurrentSong()
+                    
+                }
                 
+                appDelegate.appRemote.playerAPI?.enqueueTrackUri(track.playURI, callback: { (result, error) in
+                    self.appDelegate.appRemote.playerAPI?.skip(toNext: { (result, error) in
+                        //todo
+                    })
+                })
+                
+                fetchPlayerState()
+                
+                
+                
+            } else { // Joined Session Active
                 updateFirebaseCurrentSong()
+                updatedFromJoinedSession = true
+                
+                let groupSessionRef = ref.child("Group Sessions").child(groupSessionKey)
+                groupSessionRef.updateChildValues(["updatedFromJoinedSession" : true])
                 
             }
             
-            appDelegate.appRemote.playerAPI?.enqueueTrackUri(track.playURI, callback: { (result, error) in
-                self.appDelegate.appRemote.playerAPI?.skip(toNext: { (result, error) in
-                    //todo
-                })
-            })
+            currentQueue.remove(at: indexPath.row)
             
-            fetchPlayerState()
+            queueUpQueue()
             
-            
-            
-        } else { // Joined Session Active
-            updateFirebaseCurrentSong()
-            updatedFromJoinedSession = true
-            
-            let groupSessionRef = ref.child("Group Sessions").child(groupSessionKey)
-            groupSessionRef.updateChildValues(["updatedFromJoinedSession" : true])
-            
+            QueueTableView.reloadData()
         }
-        
-        currentQueue.remove(at: indexPath.row)
-        
-        queueUpQueue()
-        
-        QueueTableView.reloadData()
         
     }
 
@@ -212,7 +222,9 @@ class SessionViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     @IBAction func songOptionsButtonPressed(_ sender: Any) {
-        let track = Track(name: self.currSongName.text!, artist: self.currArtistName.text!, imageURL: "none", playURI: (lastPlayerState?.track.uri)!)
+//        let track = Track(name: self.currSongName.text!, artist: self.currArtistName.text!, imageURL: currAlbumArtURL, playURI: (lastPlayerState?.track.uri)!, trackLink: lastPlayerState?.track.)
+        
+        let track = nowPlaying
         
         performSegue(withIdentifier: "goToSongOptions", sender: track)
     }
@@ -332,6 +344,8 @@ class SessionViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 
             } else {
+                nowPlaying = currentQueue[0]
+                
                 self.appDelegate.appRemote.playerAPI?.skip(toNext: { (result, error) in
                     //todo
                 })
@@ -357,6 +371,7 @@ class SessionViewController: UIViewController, UITableViewDelegate, UITableViewD
             nowPlaying = currentQueue[0]
             updateFirebaseCurrentSong()
             currAlbumArtURL = currentQueue[0].imageURL
+            currTrackLink = currentQueue[0].trackLink
             currentQueue.remove(at: 0)
             queueUpQueue()
             QueueTableView.reloadData()
@@ -395,28 +410,42 @@ class SessionViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func update(playerState: SPTAppRemotePlayerState) {
         
+        // Get artwork from spotify player for current song playing, called from fetchplayerstate
         if lastPlayerState?.track.uri != playerState.track.uri {
             fetchArtwork(for: playerState.track)
+        
         }
-        
-        let track = Track(name: playerState.track.name, artist: playerState.track.artist.name, imageURL: currAlbumArtURL ?? "", playURI: playerState.track.uri)
-        
-        nowPlaying = track
-        
         lastPlayerState = playerState
         
-        currSongName.text = playerState.track.name
-        currArtistName.text = playerState.track.artist.name
         
         // If next song up is the same as first in queue remove that song
         if currentQueue.count > 0 {
             if lastPlayerState?.track.uri == currentQueue[0].playURI {
                 currAlbumArtURL = currentQueue[0].imageURL
+                currTrackLink = currentQueue[0].trackLink
                 currentQueue.remove(at: 0)
                 queueUpQueue()
                 QueueTableView.reloadData()
             }
         }
+        
+        if nowPlaying != nil {
+            // If song updated by itself
+            if nowPlaying?.playURI != playerState.track.uri {
+                let track = Track(name: playerState.track.name, artist: playerState.track.artist.name, imageURL: currAlbumArtURL ?? "", playURI: playerState.track.uri, trackLink: currTrackLink ?? "")
+                
+                nowPlaying = track
+            }
+            
+        } else { // else if nowPlaying hasn't been set
+            let track = Track(name: playerState.track.name, artist: playerState.track.artist.name, imageURL: currAlbumArtURL ?? "", playURI: playerState.track.uri, trackLink: currTrackLink ?? "")
+            
+            nowPlaying = track
+        }
+        
+        
+        currSongName.text = playerState.track.name
+        currArtistName.text = playerState.track.artist.name
         
         
         if playerState.isPaused {
@@ -424,7 +453,6 @@ class SessionViewController: UIViewController, UITableViewDelegate, UITableViewD
         } else {
             playAndPauseButton.setBackgroundImage(UIImage(named: "PauseButton"), for: .normal)
         }
-        
         
         
         // Set Current Song in Firebase
@@ -459,6 +487,8 @@ class SessionViewController: UIViewController, UITableViewDelegate, UITableViewD
     @objc func updateCurrentSong(_ notification: Notification) {
         currSongName.text = nowPlaying?.name
         currArtistName.text = nowPlaying?.artist
+        
+        currTrackLink = nowPlaying?.trackLink
         
         currAlbumArtURL = nowPlaying?.imageURL
         currAlbumArtImage.sd_setImage(with: URL(string: nowPlaying!.imageURL), placeholderImage: UIImage(named: "defaultAlbum"),options: SDWebImageOptions(rawValue: 0), completed: { (image, error, cacheType, imageURL) in

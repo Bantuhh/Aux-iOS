@@ -120,7 +120,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate
         
         print("appRemote: Did establish connection")
         
-        appRemote.playerAPI?.pause(nil)
     }
     
     func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {

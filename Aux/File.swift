@@ -38,6 +38,26 @@ var joinedSessionSongIsPlaying: Bool!
 
 var updatedFromJoinedSession = false
 
+// Structs
+struct Track {
+    var name: String
+    var artist: String
+    var imageURL: String
+    var playURI: String
+    var trackLink: String
+    
+}
+
+struct Playlist {
+    var name: String
+    var numSongs: String
+    var thumbnailURL: String
+    //var songs: [Track]
+    var playlistID: String
+    var ownerID: String
+    var playlistLink: String
+}
+
 func updateFirebaseCurrentSong() {
     
     let ref = Database.database().reference()
@@ -46,7 +66,7 @@ func updateFirebaseCurrentSong() {
     
     var currentSong: [String:String] = [:]
     if nowPlaying != nil {
-        currentSong = ["name": nowPlaying?.name, "artist": nowPlaying?.artist, "imageURL": nowPlaying?.imageURL, "playURI": nowPlaying?.playURI] as! [String : String]
+        currentSong = ["name": nowPlaying?.name, "artist": nowPlaying?.artist, "imageURL": nowPlaying?.imageURL, "playURI": nowPlaying?.playURI, "trackLink": nowPlaying?.trackLink] as! [String : String]
     } else {
         currentSong = ["name": "Dopamine", "artist": "Franc Moody", "imageURL": "https://i.scdn.co/image/c0799a88b3d87c67fbb94c187c0671048da8ae20", "playURI": "spotify:track:2MTSo2SGQ0oVKgPu99x3Df"]
     }
@@ -75,13 +95,6 @@ var establishedSpotifyConnection = false
 
 var currentQueue = [Track]()
 
-struct Track {
-    var name: String
-    var artist: String
-    var imageURL: String
-    var playURI: String
-    
-}
 
 func currentQueueToDictionary(queue: [Track])-> [String : AnyObject] {
     
@@ -96,6 +109,7 @@ func currentQueueToDictionary(queue: [Track])-> [String : AnyObject] {
         trackDict["artist"] = track.artist
         trackDict["imageURL"] = track.imageURL
         trackDict["playURI"] = track.playURI
+        trackDict["trackLink"] = track.trackLink
         
         let key = "track" + String(index)
         dict[key] = trackDict as AnyObject
@@ -131,8 +145,9 @@ func dictionaryToQueue(dict: [String : AnyObject])-> [Track] {
         let artist = trackDict["artist"] as! String
         let imageURL = trackDict["imageURL"] as! String
         let playURI = trackDict["playURI"] as! String
+        let trackLink = trackDict["trackLink"] as! String
         
-        let track = Track(name: name, artist: artist, imageURL: imageURL, playURI: playURI)
+        let track = Track(name: name, artist: artist, imageURL: imageURL, playURI: playURI, trackLink: trackLink)
         
         queueArr.append(track)
         
@@ -151,15 +166,6 @@ struct YoutubeVideo {
     var videoId: String
     var imageURL: String
     
-}
-
-struct Playlist {
-    var name: String
-    var numSongs: String
-    var thumbnailURL: String
-    //var songs: [Track]
-    var playlistID: String
-    var ownerID: String
 }
 
 protocol MyCustomCellDelegator {

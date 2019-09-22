@@ -103,6 +103,9 @@ class PlaylistViewController: UIViewController, UITableViewDelegate, UITableView
             // Set Play URI
             cell.playURI = track.playURI
             
+            // Set track link
+            cell.trackLink = track.trackLink
+            
             // Get Art URL and set image
             let albumArtURL = track.imageURL
             cell.albumArtImageURI = albumArtURL
@@ -150,6 +153,9 @@ class PlaylistViewController: UIViewController, UITableViewDelegate, UITableView
         // Get Play URI
         let playURI = track!.uri!
         
+        // Get track link
+        let trackLink = track!.externalUrls["spotify"]!
+        
         // Get Art URL and set image
         var albumArtURL = ""
         if track!.album == nil {
@@ -160,28 +166,33 @@ class PlaylistViewController: UIViewController, UITableViewDelegate, UITableView
             albumArtURL = "none"
         }
         
-        let trackToReturn = Track(name: songName, artist: trackArtistString, imageURL: albumArtURL, playURI: playURI)
+        let trackToReturn = Track(name: songName, artist: trackArtistString, imageURL: albumArtURL, playURI: playURI, trackLink: trackLink)
         
         return trackToReturn
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let track = playlistTracks[indexPath.row].track
+//        let track = playlistTracks[indexPath.row].track
+//
+//        var trackArtistString = ""
+//
+//        var numArtists = 0
+//        for artist in track!.artists {
+//            if numArtists == 0 {
+//                trackArtistString += artist.name
+//            } else {
+//                trackArtistString += ", " + artist.name
+//            }
+//            numArtists += 1
+//        }
+//
+//        let currentTrack = Track(name: track!.name, artist: trackArtistString, imageURL: track!.album.images[0].url, playURI: track!.uri, track!.)
         
-        var trackArtistString = ""
+        // Get track from Current Playlist and unpack
+        let track = unpackPlaylistTrack(theTrack: playlistTracks[indexPath.row])
         
-        var numArtists = 0
-        for artist in track!.artists {
-            if numArtists == 0 {
-                trackArtistString += artist.name
-            } else {
-                trackArtistString += ", " + artist.name
-            }
-            numArtists += 1
-        }
-        
-        let currentTrack = Track(name: track!.name, artist: trackArtistString, imageURL: track!.album.images[0].url, playURI: track!.uri)
+        let currentTrack = Track(name: track.name, artist: track.artist, imageURL: track.imageURL, playURI: track.playURI, trackLink: track.trackLink)
         
         nowPlaying = currentTrack
         
@@ -196,7 +207,7 @@ class PlaylistViewController: UIViewController, UITableViewDelegate, UITableView
                 
             }
             
-            appDelegate.appRemote.playerAPI?.enqueueTrackUri(track!.uri, callback: { (result, error) in
+            appDelegate.appRemote.playerAPI?.enqueueTrackUri(track.playURI, callback: { (result, error) in
                 self.appDelegate.appRemote.playerAPI?.skip(toNext: { (result, error) in
                     //todo
                 })

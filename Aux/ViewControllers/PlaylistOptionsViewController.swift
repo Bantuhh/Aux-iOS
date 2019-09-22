@@ -81,6 +81,9 @@ class PlaylistOptionsViewController: UIViewController {
         //Get Play URI
         let playURI = track!.uri!
         
+        // Get track link
+        let trackLink = track!.externalUrls["spotify"]!
+        
         // Get Art URL and set image
         var albumArtURL = ""
         if track!.album == nil {
@@ -91,7 +94,7 @@ class PlaylistOptionsViewController: UIViewController {
             albumArtURL = "none"
         }
         
-        let trackToReturn = Track(name: songName, artist: trackArtistString, imageURL: albumArtURL, playURI: playURI)
+        let trackToReturn = Track(name: songName, artist: trackArtistString, imageURL: albumArtURL, playURI: playURI, trackLink: trackLink)
         
         return trackToReturn
     }

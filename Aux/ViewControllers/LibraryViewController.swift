@@ -60,7 +60,9 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 let playlistURI = playlist.uri
                 let playlistID = playlistURI?.substring(fromIndex: 17)
                 
-                let currPlaylist = Playlist(name: playlistName!, numSongs: playlistNumSongs, thumbnailURL: playlistThumbnailURL!, playlistID: playlistID!, ownerID: ownerID!)
+                let playlistLink = playlist.externalUrls["spotify"]
+                
+                let currPlaylist = Playlist(name: playlistName!, numSongs: playlistNumSongs, thumbnailURL: playlistThumbnailURL!, playlistID: playlistID!, ownerID: ownerID!, playlistLink: playlistLink!)
                 
                 currentPlaylists.append(currPlaylist)
             }
@@ -114,22 +116,24 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 numArtists += 1
             }
             
-            var trackAlbumImageURL = "none"
+            var trackAlbumImageURL = ""
             let album = currentTrack?.album
             
             if album == nil {
-                trackAlbumImageURL = "none"
+                trackAlbumImageURL = ""
             } else if album?.images != nil {
                 trackAlbumImageURL = (album?.images[0].url)!
             } else {
-                trackAlbumImageURL = "none"
+                trackAlbumImageURL = ""
             }
             
             currentImageURLs.append(trackAlbumImageURL)
             
             let playURI = currentTrack?.uri
             
-            let trackToAdd = Track(name: trackName!, artist: trackArtistString, imageURL: trackAlbumImageURL, playURI: playURI!)
+            let trackLink = currentTrack?.externalUrls["spotify"]
+            
+            let trackToAdd = Track(name: trackName!, artist: trackArtistString, imageURL: trackAlbumImageURL, playURI: playURI!, trackLink: trackLink!)
             
             currentTracks.append(trackToAdd)
         }
@@ -199,10 +203,12 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 cell.playURI = track.playURI
                 
+                cell.trackLink = track.trackLink
+                
                 // Get Art URL and set image
                 let albumArtURL = favoritesAlbumArtURLs[indexPath.row]
                 
-                if albumArtURL == "none" {
+                if albumArtURL == "" {
                     cell.albumArtImage.image = UIImage(named: "defaultAlbum")
                     cell.albumArtImageURI = albumArtURL
                 } else {
@@ -246,6 +252,9 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 // Set owner ID
                 cell.ownerID = playlist.ownerID
+                
+                // Set playlist link
+                cell.playlistLink = playlist.playlistLink
                 
                 // Get Art URL and set image
                 let thumbnailURL = playlistThumbnailURLs[indexPath.row]

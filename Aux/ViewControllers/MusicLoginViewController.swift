@@ -11,7 +11,9 @@ import UIKit
 class MusicLoginViewController: UIViewController {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
+ 
+    var numConnectAttempts: Int!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(rgb: 0x252525)
@@ -19,8 +21,11 @@ class MusicLoginViewController: UIViewController {
         view.addSubview(connectLabel)
         view.addSubview(connectButton)
         view.addSubview(disconnectButton)
+        view.addSubview(closeSpotifyCaption)
         
         let constant: CGFloat = 16.0
+        
+        numConnectAttempts = 0 // If num attempts = 2, then make caption to close spotify and try again
         
         connectButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         connectButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
@@ -30,6 +35,9 @@ class MusicLoginViewController: UIViewController {
         
         connectLabel.centerXAnchor.constraint(equalTo: connectButton.centerXAnchor).isActive = true
         connectLabel.bottomAnchor.constraint(equalTo: connectButton.topAnchor, constant: -constant).isActive = true
+        
+        closeSpotifyCaption.centerXAnchor.constraint(equalTo: connectButton.centerXAnchor).isActive = true
+        closeSpotifyCaption.bottomAnchor.constraint(equalTo: connectButton.bottomAnchor, constant: constant*2.5).isActive = true
         
         connectButton.sizeToFit()
         disconnectButton.sizeToFit()
@@ -49,12 +57,14 @@ class MusicLoginViewController: UIViewController {
                 self.connectButton.isHidden = true
                 self.disconnectButton.isHidden = false
                 self.connectLabel.isHidden = true
+                self.closeSpotifyCaption.isHidden = true
 
             } else {
                 self.disconnectButton.isHidden = true
                 self.connectButton.isHidden = false
                 self.connectLabel.isHidden = false
-       
+                self.closeSpotifyCaption.isHidden = true
+                
             }
         }
     }
@@ -63,6 +73,14 @@ class MusicLoginViewController: UIViewController {
         let label = UILabel()
         label.text = "Connect your Spotify account"
         label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    fileprivate lazy var closeSpotifyCaption: UILabel = {
+        let label = UILabel()
+        label.text = "Close your Spotify app and try again."
+        label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -77,10 +95,16 @@ class MusicLoginViewController: UIViewController {
     }
     
     @objc func didTapConnect(_ button: UIButton) {
-        
         let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .userLibraryRead, .streaming]
         
         appDelegate.sessionManager.initiateSession(with: scope, options: .clientOnly)
+        
+        numConnectAttempts += 1
+        
+        if (numConnectAttempts >= 2) {
+            self.closeSpotifyCaption.isHidden = false
+            
+        }
         
         //updateViewBasedOnConnected()
     }
